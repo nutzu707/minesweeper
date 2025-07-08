@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import Minesweeper from "./components/minesweeper";
 import MultiplayerMinesweeper from "./components/multiplayer-minesweeper";
@@ -10,8 +11,7 @@ export default function Home() {
     <main className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold text-center mb-8">Minesweeper</h1>
-        
-        {/* Game Mode Seletor */}
+
         <div className="flex justify-center mb-8">
           <div className="bg-white rounded-lg shadow-md p-4">
             <div className="flex space-x-2">

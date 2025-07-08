@@ -59,7 +59,6 @@ function MultiplayerMinesweeper() {
   const [playAgainStatus, setPlayAgainStatus] = useState<{[playerId: string]: boolean}>({});
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Initialize socket connection
   useEffect(() => {
     const newSocket = io("http://localhost:3001");
     setSocket(newSocket);
@@ -72,7 +71,7 @@ function MultiplayerMinesweeper() {
   // Socket event listeners
   useEffect(() => {
     if (!socket) return;
-
+    //eslint-disable-next-line
     socket.on("roomCreated", ({ roomId, room }) => {
       setRoom(room);
       setGameMode("playing");
@@ -134,6 +133,7 @@ function MultiplayerMinesweeper() {
       setPlayerProgress(progress);
     });
 
+    //eslint-disable-next-line
     socket.on("gameOver", ({ winner, loser, reason, winnerId, loserId }) => {
       setTimerActive(false);
       setRoom(prev => prev ? { ...prev, gameState: "post_game", winner } : null);
@@ -184,6 +184,7 @@ function MultiplayerMinesweeper() {
       }
     });
 
+    //eslint-disable-next-line
     socket.on("movedToNewRoom", ({ roomId, room }) => {
       setRoom(room);
       setBoard([]);
@@ -441,6 +442,7 @@ function MultiplayerMinesweeper() {
 
   const { rows, cols } = DIFFICULTY_SETTINGS[room.difficulty];
   const currentPlayer = room.players.find(p => p.id === socket?.id);
+  //eslint-disable-next-line
   const otherPlayer = room.players.find(p => p.id !== socket?.id);
 
   return (
