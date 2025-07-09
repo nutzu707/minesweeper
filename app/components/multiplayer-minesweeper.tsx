@@ -60,7 +60,9 @@ function MultiplayerMinesweeper() {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:3001");
+    // Use same-origin for Socket.IO in production, fallback to localhost:3000 in dev
+    const url = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+    const newSocket = io(url);
     setSocket(newSocket);
 
     return () => {
