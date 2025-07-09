@@ -15,7 +15,7 @@ const next = require('next');
 const path = require('path');
 
 const dev = process.env.NODE_ENV !== 'production';
-const nextApp = next({ dev, dir: path.join(__dirname, '../app') });
+const nextApp = next({ dev, dir: path.join(__dirname, '..') });
 const handle = nextApp.getRequestHandler();
 
 nextApp.prepare().then(() => {
