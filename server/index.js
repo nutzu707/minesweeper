@@ -14,11 +14,20 @@ const cors = require('cors');
 const next = require('next');
 const path = require('path');
 
+console.log('Starting server...');
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection:', reason);
+});
+
 const dev = process.env.NODE_ENV !== 'production';
+console.log('NODE_ENV:', process.env.NODE_ENV);
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
+console.log('Preparing Next.js...');
 nextApp.prepare().then(() => {
+  console.log('Next.js prepared. Setting up Express and Socket.IO...');
   // Express and Socket.IO setup (existing code)
   const app = express();
   const server = http.createServer(app);
@@ -643,13 +652,17 @@ nextApp.prepare().then(() => {
   }
 
   // Next.js request handler (should be after your API routes if any)
+  console.log('Setting up catch-all route for Next.js...');
   app.all('*', (req, res) => {
     return handle(req, res);
   });
 
   // Start the server
   const PORT = process.env.PORT || 3000;
+  console.log('About to start server on port', PORT);
   server.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });
+}).catch((err) => {
+  console.error('Error during Next.js prepare:', err);
 }); 
